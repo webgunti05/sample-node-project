@@ -1,20 +1,29 @@
 {
   "name": "project1",
   "version": "1.0.0",
-  "description": "\"# node-practise1\"",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/webgunti05/node-practise1.git"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/webgunti05/node-practise1/issues"
   },
-  "homepage": "https://github.com/webgunti05/node-practise1#readme"
+  "homepage": "https://github.com/webgunti05/node-practise1#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.9.0",
+    "nodemon": "^2.0.20"
+  }
 }
