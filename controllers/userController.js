@@ -13,6 +13,17 @@ export const getUsers = async(req, res) => {
     }
 }
 
+//hashed password
+const hashedPassword = async(password) => {
+    const hash = await bcrypt.hash(password, 10)
+    return hash;
+}
+
+//compare password
+const comparePassword = async(password, hash) => {
+    const comparePass = await bcrypt.compare(password, hash);
+    return comparePass;
+}
 //To Create Users
 export const createUser = async(req, res) => {
     const { name, email, phone, password} = req.body;
@@ -23,10 +34,10 @@ export const createUser = async(req, res) => {
                 name:name,
                 email:email,
                 phone:phone,
-                password:password
+                password: await hashedPassword(password)
             });
-           const savedUser =  await userData.save();
-           res.status(200).json({usersList:savedUser, message: "User saved successfully"})
+            const savedUser =  await userData.save();
+            res.status(200).json({usersList:savedUser, message: "User saved successfully"})
         } else{
             res.status(201).json("User already exists");
         }
