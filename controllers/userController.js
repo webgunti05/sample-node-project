@@ -7,8 +7,10 @@ import {GET_USER_RESPONSE} from '../constants/globalConstants.js';
 
 //To Get the Users
 export const getUsers = async(req, res) => {
+    console.log('test')
     try{
         const userData = await UserModel.find();
+
         if(!userData) throw Error(GET_USER_RESPONSE.NO_DATA);
         res.status(200).json({data:userData, message: GET_USER_RESPONSE.FETCH_USERS})
     } catch(err){
