@@ -91,7 +91,6 @@ export const loginUser = async(req, res) => {
         const findUser = await UserModel.findOne({email:req.body.email});
         if(findUser){
             let passwordIsValid = await comparePassword(req.body.password, findUser.password);
-            console.log({passwordIsValid})
             if(!passwordIsValid){
                 res.status(401).json({accessToken:null, message:"Invalid Password"})
             } else{
@@ -103,6 +102,8 @@ export const loginUser = async(req, res) => {
                 res.status(200).json({loggedUser: findUser, message: "Login successful", accessToken: token})
             }
 
+        } else{
+            res.status(400).json({message: "Email is not valid"})
         }
 
 
