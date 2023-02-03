@@ -1,7 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import getUserRoutes from "./routes/userRoutes.js";
-import { dbUri } from './Config/config.js'
+import { dbUri } from './Config/config.js';
+import cors from 'cors';
 import dotenv from 'dotenv';
 
 
@@ -23,7 +24,11 @@ mongoose.connect(dbUri.MONGO_URI, {
 })
 
 app.use(express.json());
+app.use(cors);
+app.use(express.urlencoded({
+    extended: true
+  }));
 app.use('/api/users', getUserRoutes);
 app.listen(9000, () => {
-    console.log(`Server running at ${PORT}`)
+    console.log(`Server running at ${PORT}`);
 });
