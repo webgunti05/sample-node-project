@@ -1,5 +1,7 @@
-import bcrypt from 'bcrypt';
 import UserModel from '../models/userModel.js';
+import { hashedPassword, comparePassword } from '../utils/globalUtils.js';
+import jwtToken from 'jsonwebtoken';
+const API_SECRET="abcd#232343567@%^&*123";
 
 
 //To Get the Users
@@ -13,17 +15,7 @@ export const getUsers = async(req, res) => {
     }
 }
 
-//hashed password
-const hashedPassword = async(password) => {
-    const hash = await bcrypt.hash(password, 10)
-    return hash;
-}
 
-//compare password
-const comparePassword = async(password, hash) => {
-    const comparePass = await bcrypt.compare(password, hash);
-    return comparePass;
-}
 //To Create Users
 export const createUser = async(req, res) => {
     const { name, email, phone, password} = req.body;
@@ -91,6 +83,31 @@ export const deleteUserById = async(req, res) => {
 
     } catch(err){
         res.status(500).json({err:err, message: "Something went wrong"})
+    }
+}
+//Login User
+export const loginUser = async(req, res) => {
+    try{
+        const findUser = await UserModel.findOne({email:req.body.email});
+        if(findUser){
+            let passwordIsValid = await comparePassword(req.body.password, findUser.password);
+            console.log({passwordIsValid})
+            if(!passwordIsValid){
+                res.status(401).json({accessToken:null, message:"Invalid Password"})
+            } else{
+                let token = jwtToken.sign({
+                    id:findUser.id,
+                },API_SECRET, {
+                    expiresIn: 86400
+                });
+                res.status(200).json({loggedUser: findUser, message: "Login successful", accessToken: token})
+            }
+
+        }
+
+
+    } catch(err){
+        res.status(500).json({err:err, message: "Something went wrong"});
     }
 }
 
