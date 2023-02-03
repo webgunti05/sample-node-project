@@ -4,7 +4,7 @@ export const GET_USER_RESPONSE = {
     FETCH_USERS: "Users fetched successfully.",
     SAVE_USER: "User saved successfully",
     USER_EXIST: "User already exists",
-    USER_DETAILS_FETCH:"ser details fetched successfully",
+    USER_DETAILS_FETCH:"User details fetched successfully",
     USER_NOT_FOUND: "User not found",
     USER_UPDATE: "User Updated",
     ERROR_UPDATING_USER: "Error in updating the user",
