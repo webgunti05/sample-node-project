@@ -2,8 +2,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 import getUserRoutes from "./routes/userRoutes.js";
 import { dbUri } from './Config/config.js'
+import dotenv from 'dotenv';
 
 
+dotenv.config();
 const PORT = process.env.PORT || 9000;
 
 const app = express();
