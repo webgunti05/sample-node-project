@@ -12,5 +12,7 @@ export const GET_USER_RESPONSE = {
     USER_NOT_EXIST: "User doesn't exist",
     INVALID_PASSWORD:"Invalid Password",
     LOGIN_USER:"Login successful",
-    INVALID_EMAIL: "Email is not valid"
+    INVALID_EMAIL: "Email is not valid",
+    ACCESS_DENIED : "Access Denied",
+    UN_AUTH: "Un Authorized"
 }
