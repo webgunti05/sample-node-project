@@ -20,7 +20,7 @@ export const getUsers = async(req, res) => {
 
 //To Create Users
 export const createUser = async(req, res) => {
-    const { name, email, phone, password} = req.body;
+    const { name, email, phone, password, profileImage, gender} = req.body;
     try{
         const checkUserExists = await UserModel.findOne({email:email});
         if(!checkUserExists){
@@ -28,7 +28,9 @@ export const createUser = async(req, res) => {
                 name:name,
                 email:email,
                 phone:phone,
-                password: await hashedPassword(password)
+                password: await hashedPassword(password),
+                profileImage:profileImage,
+                gender:gender
             });
             const savedUser =  await userData.save();
             res.status(200).json({usersList:savedUser, message: GET_USER_RESPONSE.SAVE_USER})
@@ -113,4 +115,16 @@ export const loginUser = async(req, res) => {
         res.status(500).json({err:err, message: GET_USER_RESPONSE.SERVER_ERROR});
     }
 }
+
+export const searchUserByName = async(req, res) => {
+   try{
+        let findUser = req.params.name;
+        const userObjs = await UserModel.find({name: {$regex : `.*${findUser}.*`}});
+        console.log({userObjs})
+        res.status(200).json({data:userObjs, message:GET_USER_RESPONSE.FETCH_USERS});
+   } catch(err){
+    console.log(err)
+   }
+}
+
 
