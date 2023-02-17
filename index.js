@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import getUserRoutes from "./routes/userRoutes.js";
+import getProductRoutes from "./routes/productRoutes.js"
 import { dbUri } from './Config/config.js'
 
 
@@ -22,6 +23,7 @@ mongoose.connect(dbUri.MONGO_URI, {
 
 app.use(express.json());
 app.use('/api/users', getUserRoutes);
+app.use('/api/products', getProductRoutes);
 app.listen(9000, () => {
     console.log(`Server running at ${PORT}`)
 });
