@@ -3,8 +3,7 @@ import mongoose from 'mongoose';
 import getUserRoutes from "./routes/userRoutes.js";
 import getProductRoutes from "./routes/productRoutes.js"
 import { dbUri } from './Config/config.js'
-import { dbUri } from './config/config.js';
-import cors from 'cors';
+//import cors from 'cors';
 import dotenv from 'dotenv';
 
 
