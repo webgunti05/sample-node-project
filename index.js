@@ -3,8 +3,12 @@ import mongoose from 'mongoose';
 import getUserRoutes from "./routes/userRoutes.js";
 import getProductRoutes from "./routes/productRoutes.js"
 import { dbUri } from './Config/config.js'
+import { dbUri } from './config/config.js';
+import cors from 'cors';
+import dotenv from 'dotenv';
 
 
+dotenv.config();
 const PORT = process.env.PORT || 9000;
 
 const app = express();
@@ -22,8 +26,12 @@ mongoose.connect(dbUri.MONGO_URI, {
 })
 
 app.use(express.json());
+//app.use(cors);
+app.use(express.urlencoded({
+    extended: true
+  }));
 app.use('/api/users', getUserRoutes);
 app.use('/api/products', getProductRoutes);
 app.listen(9000, () => {
-    console.log(`Server running at ${PORT}`)
+    console.log(`Server running at ${PORT}`);
 });
